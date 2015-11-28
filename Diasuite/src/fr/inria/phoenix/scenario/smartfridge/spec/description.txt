@@ -1,0 +1,2 @@
+fullname = "Smartfridge"
+description = "Default description, please replace this description. You might also want to give a translated version of this file in 'description_fr.txt' and provides an icon in 'icon.png'. Also don't forget to generate a visual version of the taxonomy using the graphical plugin PNG button."

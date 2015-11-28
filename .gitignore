@@ -1,0 +1,8 @@
+*~
+*.class
+Diasuite/.settings/*
+Diasuite/bin/*
+Diasuite/src-gen/*
+Diasuite/tests/*
+Diasuite/.classpath
+Diasuite/.project

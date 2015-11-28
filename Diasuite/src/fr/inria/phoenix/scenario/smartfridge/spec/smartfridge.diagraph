@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<DiaGraph>
+	<controller id="SmartfridgeController" x="269.0" y="157.0"/>
+	<context id="SmartfridgeContext" x="134.0" y="286.0"/>
+	<action id="Tablette/SendMessageToTablette" x="394.0" y="49.0"/>
+	<source id="ContactSensor/state" x="27.0" y="428.0"/>
+</DiaGraph>
