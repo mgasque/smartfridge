@@ -1,0 +1,481 @@
+enumeration OnOffStatus {
+	ON, OFF
+}
+
+enumeration TemperatureUnit {
+	CELSIUS, FAHRENHEIT, KELVIN
+}
+
+enumeration NotificationLevel {
+	INFORMATION, WARNING, CRITICAL
+}
+
+enumeration FileType {
+	DIRECTORY, IMAGE, SOUND, RAW_AUDIO, VIDEO, TEXT, OTHER
+}
+
+enumeration Priority {
+	LOW, NORMAL, HIGH
+}
+
+// Utility structure to let applications and devices easily acces user informations
+structure User {
+	userId as String;
+	location as String;
+	company as Company;
+}
+
+structure Contact {
+	name as String;
+	emailAddress as String;
+	phone as String;
+	mobile as String;
+	iconUrl as String;
+	groups as String [];
+}
+
+structure Email {
+	title as String;
+	text as String;
+	date as String;
+}
+
+structure Message {
+	sender as Contact;
+	title as String;
+	text as String;
+	attachments as File [];
+}
+
+structure Date {
+	day as Integer;
+	month as Integer;
+	year as Integer;
+	hour as Integer;
+	minute as Integer;
+}
+
+structure AgendaEvent {
+	title as String;
+	description as String;
+	startTime as Date;
+	endTime as Date;
+	place as String;
+	calendar as String;
+}
+
+structure Temperature {
+	value as Float;
+	unit as TemperatureUnit;
+}
+
+enumeration WeatherType {
+	SUNNY, CLOUDY, RAINY
+}
+
+structure Weather {
+	type as WeatherType;
+	temperature as Temperature;
+	wind as WindInfo;
+}
+
+structure WeatherForecast {
+	weather as Weather;
+	date as Date;
+}
+
+structure WindInfo {
+	speed as Float;
+	direction as String;
+}
+
+structure FileInfo {
+	name as String;
+	type as FileType;
+	size as Integer;
+}
+
+structure File {
+	info as FileInfo;
+	content as Binary;
+}
+
+action On {
+	on();
+}
+
+action Off {
+	off();
+}
+
+action VariationControl {
+	setValue(value as Float);
+	increase();
+	decrease();
+}
+
+action SetTemperature {
+	setTemperature(value as Float, unit as TemperatureUnit);
+}
+
+action Notification {
+	notify(level as NotificationLevel);
+}
+
+action AgendaEventAction {
+	addEvent(event as AgendaEvent);
+	replaceEvent(oldEvent as AgendaEvent, newEvent as AgendaEvent);
+	removeEvent(event as AgendaEvent);
+}
+
+action AddressBookAction {
+	addContact(contact as Contact);
+	replaceContact(oldContact as Contact, newContact as Contact);
+	removeContact(contact as Contact);
+}
+
+action SendEmail {
+	send(message as Email);
+}
+
+action SendTargetedEmail {
+	send(message as Email, address as String);
+}
+
+action PushMessage {
+	push(title as String, text as String, priority as Priority);
+	pushWithImage(title as String, text as String, priority as Priority, image as File);
+}
+
+action UnLock {
+	unlock();
+}
+
+action Lock {
+	lock();
+}
+
+action Open {
+	open();
+}
+
+action Close {
+	close();
+}
+
+action SetShutterPosition {
+	setPosition(position as Float);
+}
+
+action UpdateLockStatus {
+	updateStatus(isLocked as Boolean);
+}
+
+device Device {
+	attribute id as String;
+	source isAlive as Boolean;
+}
+
+//-------------------------
+//-- Services
+//-------------------------
+device BuiltIn extends Device {
+}
+
+device Clock extends BuiltIn {
+	source tickSecond as Integer;
+	source tickMinute as Integer;
+	source tickHour as Integer;
+}
+
+action ScheduleTimer {
+	schedule(id as String, delayMs as Integer);
+	periodicSchedule(id as String, delayMs as Integer, periodMs as Integer);
+	cancel(id as String);
+}
+
+device Timer extends BuiltIn {
+	source timerTriggered as String indexed by timerId as String;
+	action ScheduleTimer;
+}
+
+structure KeyValue {
+	key as String;
+	value as String;
+}
+
+structure TimedKeyValue {
+	key as String;
+	value as String;
+	time as Date;
+}
+
+action ManageData {
+	put(data as KeyValue);
+	putTimedData(date as Date, data as KeyValue);
+	delete(key as String);
+}
+
+device Database extends BuiltIn {
+	source value as String indexed by key as String; // Simple get
+	source values as KeyValue [] indexed by keys as String []; // Get from several keys
+	source lastValue as String indexed by key as String, before as Date; // Simple get of the last value before the given date corresponding to the given key in a timed database
+	source timedValues as TimedKeyValue [] indexed by key as String, start as Date, end as Date; // Get values from a key in a timed database
+	action ManageData;
+}
+
+device WeatherForecaster extends Device {
+	source currentWeather as Weather indexed by region as String;
+	source weatherForecasts as WeatherForecast [] indexed by region as String;
+}
+
+//-------------------------
+//-- Social Network Devices
+//-------------------------
+action PublishContent {
+	publish(user as User, content as String);
+}
+
+device SocialNetwork extends Device {
+	action PublishContent;
+}
+
+device Twitter extends SocialNetwork {
+}
+
+//-------------------------
+//-- Messaging Devices
+//-------------------------
+action SendMessage {
+	sendMessage(to as Contact, title as String, content as String, attachments as File []);
+	sendMessageWithImage(to as Contact, title as String, content as String, image as String);
+}
+
+device NotificationService extends Device {
+	action SendMessage;
+}
+
+device CommunicationService extends NotificationService {
+	source lastMessageReceived as Message;
+	source messagesReceived as Message [] indexed by from as Contact, since as Date;
+}
+
+device Mailer extends CommunicationService {
+}
+
+device AddressBook extends Device {
+	attribute owner as String;
+	source contacts as Contact [] indexed by filter as Contact;
+	action AddressBookAction;
+}
+
+device Agenda extends Device {
+	attribute owner as String;
+	source currentEvent as AgendaEvent;
+	source nextEvent as AgendaEvent;
+	source events as AgendaEvent [] indexed by filter as AgendaEvent;
+	action AgendaEventAction;
+}
+
+//-------------------------
+//-- Physical Devices
+//-------------------------
+device PhysicalDevice extends Device {
+	attribute location as String;
+	attribute company as Company;
+}
+
+// Sensors
+device Sensor extends PhysicalDevice {
+}
+
+device MotionDetector extends Sensor {
+	source motion as Boolean;
+}
+
+device LightSensor extends Sensor {
+	source level as Float;
+}
+
+device TemperatureSensor extends Sensor {
+	source temperature as Float indexed by unit as TemperatureUnit;
+}
+
+device ContactSensor extends Sensor {
+	source state as Boolean;
+}
+
+device SmokeSensor extends Sensor {
+	source smoke as Boolean;
+}
+
+device CO2Sensor extends Sensor {
+	source levelInPPM as Integer;
+}
+
+device HumiditySensor extends Sensor {
+	source humidity as Integer;
+}
+
+// Energy
+device EnergyMeter extends Sensor {
+}
+
+device ElectricMeter extends EnergyMeter {
+	source electricConsumption as Float indexed by date as Date;
+	source currentElectricConsumption as Float;
+}
+
+device WaterMeter extends EnergyMeter {
+	source waterConsumption as Float indexed by date as Date;
+	source currentWaterConsumption as Float;
+}
+
+device GasMeter extends EnergyMeter {
+	source gasConsumption as Float indexed by date as Date;
+	source currentGasConsumption as Float;
+}
+
+// Appliances
+device Appliance extends PhysicalDevice {
+	action On;
+	action Off;
+	source status as OnOffStatus;
+}
+
+device Alarm extends Appliance {
+}
+
+//------------------
+// IHM
+//------------------------------------
+device KeyPad extends PhysicalDevice {
+	action UpdateLockStatus;
+	source isLocked as Boolean;
+}
+
+device IntrusionDetector extends PhysicalDevice {
+	source intrusionDetected as Boolean;
+}
+
+device IHM extends Device {
+}
+
+structure Company {
+	name as String;
+}
+
+structure Intrusion {
+	company as Company;
+	location as String;
+	date as Date;
+}
+
+device BuildingSecurityView extends IHM {
+	source securityStatus as Boolean indexed by company as Company;
+	source sendIntrusionAlerts as Boolean indexed by company as Company;
+	source selectedUsers as Contact [] indexed by company as Company;
+	action AddIntrusion;
+}
+
+device BuildingEnergyView extends IHM {
+	source reportFrequency as Date indexed by user as User;
+	source reportMessage as String indexed by user as User;
+}
+
+action AddIntrusion {
+	addIntrusion(company as Company, intrusion as Intrusion);
+}
+
+/** Rules **/
+device DeskRules extends IHM {
+	source rules as Rule [] indexed by user as User;
+}
+
+structure Condition {
+	source as String;
+	operator as String;
+	value as String;
+	description as String;
+}
+
+structure Action {
+	name as String;
+	parameters as String [];
+	description as String;
+}
+
+structure Rule {
+	owner as User;
+	conditions as Condition [];
+	actions as Action [];
+	description as String;
+}
+
+device Widget extends IHM {
+}
+
+/**
+ * widget DeskInstantInformation {
+ * 	 data insideTemperature as Float indexed by location as String, company as Company;
+ *   data outsideTemperature as Float;
+ *   data electricConsumption as Integer indexed by location as String, company as Company;
+ *   data co2Level as Integer indexed by location as String, company as Company;
+ * }
+ */
+
+/** Desk **/
+
+// Instant
+device DeskInstantInformation extends Widget {
+	source insideTemperature as Float indexed by location as String, company as Company;
+	source outsideTemperature as Float;
+	source electricConsumption as Integer indexed by location as String, company as Company;
+	source co2Level as Integer indexed by location as String, company as Company;
+	source humidity as Integer indexed by location as String, company as Company;
+	action UpdateDeskInstantInformation;
+}
+
+action UpdateDeskInstantInformation {
+	updateInsideTemperature(insideTemperature as Float, location as String, company as Company);
+	updateOutsideTemperature(outsideTemperature as Float);
+	updateElectricConsumption(electricConsumption as Integer, location as String, company as Company);
+	updateCo2Level(co2Level as Integer, location as String, company as Company);
+	updateHumidity(humidity as Integer, location as String, company as Company);
+}
+
+/**
+ * widget DeskTemperatureHistory {
+ * 	 data insideTemperatureHistory as Float[] indexed by location as String, company as Company;
+ *   data outsideTemperatureHistory as Float[] indexed by location as String, company as Company;
+ * }
+ */
+device DeskTemperatureHistory extends Widget {
+	source insideTemperatureHistory as Float[] indexed by location as String, company as Company;
+	source outsideTemperatureHistory as Float[] indexed by location as String, company as Company;
+	action UpdateDeskTemperatureHistory;
+}
+
+action UpdateDeskTemperatureHistory {
+	updateInsideTemperatureHistory(insideTemperatureHistory as Float[], location as String, company as Company);
+	updateOutsideTemperatureHistory(outsideTemperatureHistory as Float[], location as String, company as Company);
+}
+
+/** Building **/
+
+// Instant
+device BuildingInstantInformation extends Widget {
+	source outsideTemperature as Float;
+	source electricConsumption as Integer;
+	source waterConsumption as Integer;
+	source energyRating as String;
+	action UpdateBuildingInstantInformation;
+}
+
+action UpdateBuildingInstantInformation {
+	updateOutsideTemperature(outsideTemperature as Float);
+	updateElectricConsumption(electricConsumption as Integer);
+	updateWaterConsumption(water as Integer);
+	updateEnergyRating(rating as String);
+}
+

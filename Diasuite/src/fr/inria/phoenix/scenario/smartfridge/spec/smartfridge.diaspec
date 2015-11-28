@@ -1,0 +1,25 @@
+include "taxonomy.diaspec";
+
+structure SmartfridgeData{
+	isContact as Boolean;
+	location as String;
+}
+
+action SendMessageToTablette{
+	send(isContact as Boolean, location as String);
+}
+
+device Tablette{
+	action SendMessageToTablette;
+}
+
+// Smartfridge context
+context SmartfridgeContext as SmartfridgeData {
+	when provided state from ContactSensor
+	always publish;
+}
+
+// Smartfridge controller
+controller SmartfridgeController {
+	when provided SmartfridgeContext do SendMessageToTablette on Tablette;
+}
