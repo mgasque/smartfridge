@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
         String CREATE_PRODUCTS_TABLE = "CREATE TABLE " +
                 TABLE_PRODUCTS + "("
                 + COLUMN_ID + " INTEGER PRIMARY KEY," + COLUMN_PRODUCTNAME
-                + " TEXT," + COLUMN_QUANTITY + " INTEGER" + COLUMN_FLOOR + " TEXT," + ")";
+                + " TEXT," + COLUMN_QUANTITY + " INTEGER," + COLUMN_FLOOR + " TEXT" + ")";
         db.execSQL(CREATE_PRODUCTS_TABLE);
     }
 
@@ -61,6 +62,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
     public Product findProduct(String productname) {
         String query = "Select * FROM " + TABLE_PRODUCTS + " WHERE " + COLUMN_PRODUCTNAME + " =  \"" + productname + "\"";
 
+
         SQLiteDatabase db = this.getWritableDatabase();
 
         Cursor cursor = db.rawQuery(query, null);
@@ -69,6 +71,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             cursor.moveToFirst();
+            Log.d("log_tag", "cocuou " + cursor.getColumnCount());
             product.setID(Integer.parseInt(cursor.getString(0)));
             product.setProductName(cursor.getString(1));
             product.setQuantity(Integer.parseInt(cursor.getString(2)));
@@ -89,18 +92,16 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
         List<Product> myList = new ArrayList<Product>();
 
-        if (cursor.moveToNext()) {
+        while (cursor.moveToNext()) {
             Product product = new Product();
-            cursor.moveToNext();
             product.setID(Integer.parseInt(cursor.getString(0)));
             product.setProductName(cursor.getString(1));
             product.setQuantity(Integer.parseInt(cursor.getString(2)));
             product.setFloorName(cursor.getString(3));
             myList.add(product);
-            cursor.close();
-        } else {
-            myList = null;
+
         }
+        cursor.close();
         db.close();
         return myList;
     }
