@@ -1,5 +1,6 @@
 package com.group2.smartfridge.smartfridge;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,6 +14,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.group2.smartfridge.smartfridge.database.DatabaseTestActivity;
 
@@ -43,6 +48,67 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        Button detailsButton = (Button) findViewById(R.id.detailsButton);
+        detailsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Dialog dialog = new Dialog(MainActivity.this);
+                dialog.setContentView(R.layout.details_product);
+                dialog.setTitle("Pommes");
+                dialog.show();
+
+                ImageButton unitSwitch = (ImageButton) dialog.findViewById(R.id.unitSwitch);
+                unitSwitch.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        TextView unitText = (TextView) dialog.findViewById(R.id.unitText);
+                        switch (unitText.getText().toString()) {
+                            case "Kg":
+                                unitText.setText("U");
+                                break;
+                            case "U":
+                                unitText.setText("L");
+                                break;
+                            case "L":
+                                unitText.setText("Kg");
+                                break;
+                            default:
+                                unitText.setText("Kg");
+                                break;
+                        }
+                    }
+                });
+
+                ImageButton plus = (ImageButton) dialog.findViewById(R.id.plusButton);
+                plus.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        EditText valueText =  (EditText) dialog.findViewById(R.id.valueText);
+                        int value = Integer.parseInt(valueText.getText().toString());
+                        value++;
+                        valueText.setText(Integer.toString(value));
+                    }
+                });
+
+                ImageButton moins = (ImageButton) dialog.findViewById(R.id.lessButton);
+                moins.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        EditText valueText =  (EditText) dialog.findViewById(R.id.valueText);
+                        int value = Integer.parseInt(valueText.getText().toString());
+                        if(value>0) {
+                            value--;
+                            valueText.setText(Integer.toString(value));
+                        }else{
+                            Snackbar.make(v, "Vous ne pouvez pas avoir une quantité négative d'un aliment.", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                        }
+                    }
+                });
+
+            }
+        });
     }
 
     @Override
