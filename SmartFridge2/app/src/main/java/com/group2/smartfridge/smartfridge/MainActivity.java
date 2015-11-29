@@ -2,7 +2,6 @@ package com.group2.smartfridge.smartfridge;
 
 import android.app.Dialog;
 import android.support.v4.app.Fragment;
-import android.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
@@ -157,24 +156,32 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         Fragment fragment;
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_floor2) {
 
-            Intent intent = new Intent(this, DatabaseTestActivity.class);
-            startActivity(intent);
-
-        } else if (id == R.id.nav_slideshow) {
-            fragment = new MyFragment();
+            fragment = new FragmentFloor2();
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.mainFrame, fragment);
             ft.commit();
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_floor1) {
 
-        } else if (id == R.id.nav_share) {
+            fragment = new FragmentFloor1();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.mainFrame, fragment);
+            ft.commit();
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_vegetable) {
+
+            fragment = new FragmentVegetable();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.mainFrame, fragment);
+            ft.commit();
+
+        }else if (id == R.id.nav_door) {
+            fragment = new FragmentDoor();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.mainFrame, fragment);
+            ft.commit();
 
         }
 
