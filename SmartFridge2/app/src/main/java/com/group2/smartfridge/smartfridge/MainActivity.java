@@ -88,8 +88,13 @@ public class MainActivity extends AppCompatActivity
                     public void onClick(View v) {
                         EditText valueText = (EditText) dialog.findViewById(R.id.valueText);
                         int value = Integer.parseInt(valueText.getText().toString());
-                        value++;
-                        valueText.setText(Integer.toString(value));
+                        if(value < 99){
+                            value++;
+                            valueText.setText(Integer.toString(value));
+                        } else {
+                            Snackbar.make(v, "Vous ne pouvez pas avoir plus de 100 éléments", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                        }
                     }
                 });
 
@@ -103,9 +108,17 @@ public class MainActivity extends AppCompatActivity
                             value--;
                             valueText.setText(Integer.toString(value));
                         } else {
-                            Snackbar.make(v, "Vous ne pouvez pas avoir une quantité négative d'un aliment.", Snackbar.LENGTH_LONG)
+                            Snackbar.make(v, "Vous ne pouvez pas avoir une quantité négative d'un aliment", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
                         }
+                    }
+                });
+
+                ImageButton okButton = (ImageButton) dialog.findViewById(R.id.okButton);
+                okButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
                     }
                 });
 
