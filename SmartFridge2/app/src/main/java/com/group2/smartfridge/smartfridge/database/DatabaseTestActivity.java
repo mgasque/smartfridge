@@ -51,8 +51,15 @@ public class DatabaseTestActivity extends AppCompatActivity {
         Button button2 = (Button) findViewById(R.id.button2);
         Button button3 = (Button) findViewById(R.id.button3);
         Button button4 = (Button) findViewById(R.id.button4);
+        Button button5 = (Button) findViewById(R.id.button5);
 
-
+        button5.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Perform action on click
+                MyDBHandler dbHandler = new MyDBHandler(context, null, null, 1);
+                dbHandler.incrementQuantity(productBox.getText().toString());
+            }
+        });
 
         button1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -120,7 +127,7 @@ public class DatabaseTestActivity extends AppCompatActivity {
                 List<Product> product =
                         dbHandler.findProductByFloor(floorBox.getText().toString());
 
-                Log.d("log_tag", "coucou " + product.get(0).getFloorName() + product.get(0).getProductName() + product.get(1).getFloorName() + product.get(1).getProductName());
+                Log.d("log_tag", "coucou " + product.get(0).getFloorName() + product.get(0).getProductName() + product.get(0).getQuantity() + product.get(1).getFloorName() + product.get(1).getProductName());
             }
         });
 
