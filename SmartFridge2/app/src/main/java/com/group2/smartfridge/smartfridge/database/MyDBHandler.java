@@ -106,6 +106,25 @@ public class MyDBHandler extends SQLiteOpenHelper {
         return myList;
     }
 
+    public void incrementQuantity(String productname) {
+
+        String query = "UPDATE " + TABLE_PRODUCTS + " SET " + COLUMN_QUANTITY + " = " + COLUMN_QUANTITY + " + 1 " + " WHERE " + COLUMN_PRODUCTNAME + " =  \"" + productname + "\"";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.execSQL(query);
+
+    }
+
+    public void decrementQuantity(String productname) {
+
+        String query = "UPDATE " + TABLE_PRODUCTS + " SET " + COLUMN_QUANTITY + " = " + COLUMN_QUANTITY + " - 1 " + " WHERE " + COLUMN_PRODUCTNAME + " =  \"" + productname + "\"";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.execSQL(query);
+
+    }
 
     public boolean deleteProduct(String productname) {
 
