@@ -50,6 +50,7 @@
                 android:elegantTextHeight="true"
                 android:inputType="number"
                 android:textSize="50dp"
+                android:maxLength="2"
                 android:text="2" />
         
             <TextView

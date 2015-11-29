@@ -10,12 +10,12 @@ import android.view.ViewGroup;
 /**
  * Created by Aude on 29/11/2015.
  */
-public class MyFragment extends Fragment {
+public class FragmentFloor1 extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View layout = inflater.inflate(R.layout.my_fragment, container, false);
+        View layout = inflater.inflate(R.layout.fragment_floor1, container, false);
 
 
         return layout;
