@@ -73,6 +73,9 @@ public class MainActivity extends AppCompatActivity
                                 unitText.setText("L");
                                 break;
                             case "L":
+                                unitText.setText("%");
+                                break;
+                            case "%":
                                 unitText.setText("Kg");
                                 break;
                             default:
@@ -87,10 +90,10 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onClick(View v) {
                         EditText valueText = (EditText) dialog.findViewById(R.id.valueText);
-                        int value = Integer.parseInt(valueText.getText().toString());
+                        float value = Float.parseFloat(valueText.getText().toString());
                         if(value < 99){
                             value++;
-                            valueText.setText(Integer.toString(value));
+                            valueText.setText(Float.toString(value));
                         } else {
                             Snackbar.make(v, "Vous ne pouvez pas avoir plus de 100 éléments", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
@@ -103,10 +106,10 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onClick(View v) {
                         EditText valueText = (EditText) dialog.findViewById(R.id.valueText);
-                        int value = Integer.parseInt(valueText.getText().toString());
+                        float value = Float.parseFloat(valueText.getText().toString());
                         if (value > 0) {
                             value--;
-                            valueText.setText(Integer.toString(value));
+                            valueText.setText(Float.toString(value));
                         } else {
                             Snackbar.make(v, "Vous ne pouvez pas avoir une quantité négative d'un aliment", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();

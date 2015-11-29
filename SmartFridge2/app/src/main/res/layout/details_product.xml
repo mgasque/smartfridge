@@ -48,9 +48,9 @@
                 android:layout_gravity="center"
                 android:textStyle="italic"
                 android:elegantTextHeight="true"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:textSize="50dp"
-                android:maxLength="2"
+                android:maxLength="3"
                 android:text="2" />
         
             <TextView
