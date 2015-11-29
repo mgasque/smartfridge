@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by aude on 28/11/15.
  */
@@ -19,6 +22,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_PRODUCTNAME = "productname";
     public static final String COLUMN_QUANTITY = "quantity";
+    public static final String COLUMN_FLOOR = "floorName";
 
     public MyDBHandler(Context context, String name,
                        SQLiteDatabase.CursorFactory factory, int version) {
@@ -30,7 +34,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
         String CREATE_PRODUCTS_TABLE = "CREATE TABLE " +
                 TABLE_PRODUCTS + "("
                 + COLUMN_ID + " INTEGER PRIMARY KEY," + COLUMN_PRODUCTNAME
-                + " TEXT," + COLUMN_QUANTITY + " INTEGER" + ")";
+                + " TEXT," + COLUMN_QUANTITY + " INTEGER" + COLUMN_FLOOR + " TEXT," + ")";
         db.execSQL(CREATE_PRODUCTS_TABLE);
     }
 
@@ -46,6 +50,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COLUMN_PRODUCTNAME, product.getProductName());
         values.put(COLUMN_QUANTITY, product.getQuantity());
+        values.put(COLUMN_FLOOR, product.getFloorName());
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -67,6 +72,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
             product.setID(Integer.parseInt(cursor.getString(0)));
             product.setProductName(cursor.getString(1));
             product.setQuantity(Integer.parseInt(cursor.getString(2)));
+            product.setFloorName(cursor.getString(3));
             cursor.close();
         } else {
             product = null;
@@ -74,6 +80,31 @@ public class MyDBHandler extends SQLiteOpenHelper {
         db.close();
         return product;
     }
+    public List<Product> findProductByFloor(String floorName) {
+        String query = "Select * FROM " + TABLE_PRODUCTS + " WHERE " + COLUMN_FLOOR + " =  \"" + floorName + "\"";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        List<Product> myList = new ArrayList<Product>();
+
+        if (cursor.moveToNext()) {
+            Product product = new Product();
+            cursor.moveToNext();
+            product.setID(Integer.parseInt(cursor.getString(0)));
+            product.setProductName(cursor.getString(1));
+            product.setQuantity(Integer.parseInt(cursor.getString(2)));
+            product.setFloorName(cursor.getString(3));
+            myList.add(product);
+            cursor.close();
+        } else {
+            myList = null;
+        }
+        db.close();
+        return myList;
+    }
+
 
     public boolean deleteProduct(String productname) {
 

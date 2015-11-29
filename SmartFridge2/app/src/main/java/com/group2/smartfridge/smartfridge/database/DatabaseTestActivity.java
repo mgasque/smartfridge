@@ -5,18 +5,22 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.group2.smartfridge.smartfridge.R;
+
+import java.util.List;
 
 public class DatabaseTestActivity extends AppCompatActivity {
 
     TextView idView;
     EditText productBox;
     EditText quantityBox;
-
+    EditText floorBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,20 +41,30 @@ public class DatabaseTestActivity extends AppCompatActivity {
         idView = (TextView) findViewById(R.id.productID);
         productBox = (EditText) findViewById(R.id.productName);
         quantityBox = (EditText) findViewById(R.id.productQuantity);
-    }
+        floorBox = (EditText) findViewById(R.id.productFloor);
 
-    public void newProduct (View view) {
-        MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
+        Button button1 = (Button) findViewById(R.id.button);
+        Button button2 = (Button) findViewById(R.id.button2);
+        Button button3 = (Button) findViewById(R.id.button3);
+        Button button4 = (Button) findViewById(R.id.button4);
 
-        int quantity =
-                Integer.parseInt(quantityBox.getText().toString());
-
-        Product product =
-                new Product(productBox.getText().toString(), quantity);
-
-        dbHandler.addProduct(product);
-        productBox.setText("");
-        quantityBox.setText("");
+        button1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Perform action on click
+//                MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
+//
+//                int quantity =
+//                        Integer.parseInt(quantityBox.getText().toString());
+//
+//                Product product =
+//                        new Product(productBox.getText().toString(), quantity, floorBox.getText().toString());
+//
+//                dbHandler.addProduct(product);
+//                productBox.setText("");
+//                quantityBox.setText("");
+//                floorBox.setText("");
+            }
+        });
     }
 
     public void lookupProduct (View view) {
@@ -63,9 +77,19 @@ public class DatabaseTestActivity extends AppCompatActivity {
             idView.setText(String.valueOf(product.getID()));
 
             quantityBox.setText(String.valueOf(product.getQuantity()));
+            floorBox.setText(String.valueOf(product.getFloorName()));
         } else {
             idView.setText("No Match Found");
         }
+    }
+
+    public void lookupProductFloor (View view) {
+        MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
+
+        List<Product> product =
+                dbHandler.findProductByFloor(floorBox.getText().toString());
+
+        Log.d("log_tag", "coucou " + product.get(0) + product.get(1));
     }
 
     public void removeProduct (View view) {
@@ -80,6 +104,7 @@ public class DatabaseTestActivity extends AppCompatActivity {
             idView.setText("Record Deleted");
             productBox.setText("");
             quantityBox.setText("");
+            floorBox.setText("");
         }
         else
             idView.setText("No Match Found");

@@ -28,28 +28,36 @@
         android:layout_height="wrap_content"
         android:id="@+id/productQuantity"/>
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/productFloor"/>
+
 
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="add"
-        android:id="@+id/button"
-        android:onClick="newProduct" />
+        android:id="@+id/button" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="find"
-        android:id="@+id/button2"
-        android:onClick="lookupProduct" />
+        android:id="@+id/button2" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="delete"
-        android:id="@+id/button3"
-        android:onClick="removeProduct" />
+        android:id="@+id/button3" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="findFromFloor"
+        android:id="@+id/button4" />
 
 
 </LinearLayout>

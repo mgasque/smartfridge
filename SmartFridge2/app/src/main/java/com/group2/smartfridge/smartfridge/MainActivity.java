@@ -1,6 +1,9 @@
 package com.group2.smartfridge.smartfridge;
 
 import android.app.Dialog;
+import android.support.v4.app.Fragment;
+import android.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -84,7 +87,7 @@ public class MainActivity extends AppCompatActivity
                 plus.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        EditText valueText =  (EditText) dialog.findViewById(R.id.valueText);
+                        EditText valueText = (EditText) dialog.findViewById(R.id.valueText);
                         int value = Integer.parseInt(valueText.getText().toString());
                         value++;
                         valueText.setText(Integer.toString(value));
@@ -95,12 +98,12 @@ public class MainActivity extends AppCompatActivity
                 moins.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        EditText valueText =  (EditText) dialog.findViewById(R.id.valueText);
+                        EditText valueText = (EditText) dialog.findViewById(R.id.valueText);
                         int value = Integer.parseInt(valueText.getText().toString());
-                        if(value>0) {
+                        if (value > 0) {
                             value--;
                             valueText.setText(Integer.toString(value));
-                        }else{
+                        } else {
                             Snackbar.make(v, "Vous ne pouvez pas avoir une quantité négative d'un aliment.", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
                         }
@@ -109,6 +112,9 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+
+
+
     }
 
     @Override
@@ -146,8 +152,10 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        Fragment fragment;
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
@@ -157,6 +165,10 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_slideshow) {
+            fragment = new MyFragment();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.mainFrame, fragment);
+            ft.commit();
 
         } else if (id == R.id.nav_manage) {
 

@@ -7,21 +7,32 @@ public class Product {
 
     private int id;
     private String productname;
+    private String floorName;
     private int quantity;
 
     public Product() {
 
     }
 
-    public Product(int id, String productname, int quantity) {
+    public Product(int id, String productname, int quantity, String floorName) {
         this.id = id;
         this.productname = productname;
         this.quantity = quantity;
+        this.floorName = floorName;
     }
 
-    public Product(String productname, int quantity) {
+    public Product(String productname, int quantity, String floorName) {
         this.productname = productname;
         this.quantity = quantity;
+        this.floorName = floorName;
+    }
+
+    public String getFloorName() {
+        return floorName;
+    }
+
+    public void setFloorName(String floorName) {
+        this.floorName = floorName;
     }
 
     public void setID(int id) {
