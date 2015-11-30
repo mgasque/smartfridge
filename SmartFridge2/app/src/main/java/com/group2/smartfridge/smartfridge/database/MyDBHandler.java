@@ -116,6 +116,14 @@ public class MyDBHandler extends SQLiteOpenHelper {
         db.execSQL(query);
     }
 
+    public void setUnityInDB(String productname, String unity) {
+        String query = "UPDATE " + TABLE_PRODUCTS + " SET " + COLUMN_UNITY + " = " + unity + " WHERE " + COLUMN_PRODUCTNAME + " =  \"" + productname + "\"";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.execSQL(query);
+    }
+
     public boolean deleteProduct(String productname) {
 
         boolean result = false;
