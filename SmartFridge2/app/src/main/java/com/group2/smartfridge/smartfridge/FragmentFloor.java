@@ -80,15 +80,19 @@ public class FragmentFloor extends Fragment {
                         switch (unitText.getText().toString()) {
                             case "Kg":
                                 unitText.setText("U");
+                                dbHandler.setUnityInDB(product.get(position).getProductName(),"U");
                                 break;
                             case "U":
                                 unitText.setText("L");
+                                dbHandler.setUnityInDB(product.get(position).getProductName(), "L");
                                 break;
                             case "L":
                                 unitText.setText("%");
+                                dbHandler.setUnityInDB(product.get(position).getProductName(), "%");
                                 break;
                             case "%":
                                 unitText.setText("Kg");
+                                dbHandler.setUnityInDB(product.get(position).getProductName(),"Kg");
                                 break;
                             default:
                                 unitText.setText("Kg");

@@ -117,7 +117,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
     }
 
     public void setUnityInDB(String productname, String unity) {
-        String query = "UPDATE " + TABLE_PRODUCTS + " SET " + COLUMN_UNITY + " = " + unity + " WHERE " + COLUMN_PRODUCTNAME + " =  \"" + productname + "\"";
+        String query = "UPDATE " + TABLE_PRODUCTS + " SET " + COLUMN_UNITY + " = \"" + unity + "\"" + " WHERE " + COLUMN_PRODUCTNAME + " =  \"" + productname + "\"";
 
         SQLiteDatabase db = this.getWritableDatabase();
 
