@@ -65,8 +65,8 @@ public class DatabaseTestActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Perform action on click
                 MyDBHandler dbHandler = new MyDBHandler(context, null, null, 1);
-                int quantity =
-                        Integer.parseInt(quantityBox.getText().toString());
+                float quantity =
+                        Float.parseFloat(quantityBox.getText().toString());
 
                 Product product =
                         new Product(productBox.getText().toString(), quantity, floorBox.getText().toString());

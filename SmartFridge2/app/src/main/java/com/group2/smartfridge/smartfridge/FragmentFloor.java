@@ -44,8 +44,6 @@ public class FragmentFloor extends Fragment {
 
         List<Product> product =
                     dbHandler.findProductByFloor(floorName);
-
-        Log.d("log_tag", "coucou " + product.get(0).getFloorName() + product.get(0).getProductName() + product.get(0).getQuantity() + product.get(1).getFloorName() + product.get(1).getProductName());
         // Retrieve the recycler_view floor 2
         mRecyclerView = (RecyclerView) layout.findViewById(R.id.list_recycler);
 

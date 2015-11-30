@@ -106,17 +106,17 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_floor1) {
 
-//            Intent intent = new Intent(this, DatabaseTestActivity.class);
-//            startActivity(intent);
-
-            Bundle bundle = new Bundle();
-            bundle.putString("floorName", "floor1");
-
-            fragment = new FragmentFloor();
-            fragment.setArguments(bundle);
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.mainFrame, fragment);
-            ft.commit();
+            Intent intent = new Intent(this, DatabaseTestActivity.class);
+            startActivity(intent);
+//
+//            Bundle bundle = new Bundle();
+//            bundle.putString("floorName", "floor1");
+//
+//            fragment = new FragmentFloor();
+//            fragment.setArguments(bundle);
+//            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//            ft.replace(R.id.mainFrame, fragment);
+//            ft.commit();
 
         } else if (id == R.id.nav_vegetable) {
 

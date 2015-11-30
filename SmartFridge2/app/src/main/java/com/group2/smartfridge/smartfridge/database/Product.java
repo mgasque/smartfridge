@@ -8,20 +8,20 @@ public class Product {
     private int id;
     private String productname;
     private String floorName;
-    private int quantity;
+    private float quantity;
 
     public Product() {
 
     }
 
-    public Product(int id, String productname, int quantity, String floorName) {
+    public Product(int id, String productname, float quantity, String floorName) {
         this.id = id;
         this.productname = productname;
         this.quantity = quantity;
         this.floorName = floorName;
     }
 
-    public Product(String productname, int quantity, String floorName) {
+    public Product(String productname, float quantity, String floorName) {
         this.productname = productname;
         this.quantity = quantity;
         this.floorName = floorName;
@@ -51,11 +51,11 @@ public class Product {
         return this.productname;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(float quantity) {
         this.quantity = quantity;
     }
 
-    public int getQuantity() {
+    public float getQuantity() {
         return this.quantity;
     }
 }

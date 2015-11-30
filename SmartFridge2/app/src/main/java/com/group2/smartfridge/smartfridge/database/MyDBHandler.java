@@ -96,7 +96,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
             Product product = new Product();
             product.setID(Integer.parseInt(cursor.getString(0)));
             product.setProductName(cursor.getString(1));
-            product.setQuantity(Integer.parseInt(cursor.getString(2)));
+            product.setQuantity(Float.parseFloat(cursor.getString(2)));
             product.setFloorName(cursor.getString(3));
             myList.add(product);
 
