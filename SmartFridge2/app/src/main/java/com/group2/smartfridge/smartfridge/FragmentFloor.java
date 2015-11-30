@@ -40,9 +40,9 @@ public class FragmentFloor extends Fragment {
         String floorName = getArguments().getString("floorName");
         Log.d("log_tag", floorName);
 
-        MyDBHandler dbHandler = new MyDBHandler(getActivity(), null, null, 1);
+        final MyDBHandler dbHandler = new MyDBHandler(getActivity(), null, null, 1);
 
-        List<Product> product =
+        final List<Product> product =
                     dbHandler.findProductByFloor(floorName);
         // Retrieve the recycler_view floor 2
         mRecyclerView = (RecyclerView) layout.findViewById(R.id.list_recycler);
@@ -63,17 +63,20 @@ public class FragmentFloor extends Fragment {
 
         mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), mRecyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
-            public void onClick(View view, int position) {
+            public void onClick(View view, final int position) {
                 final Dialog dialog = new Dialog(getActivity());
                 dialog.setContentView(R.layout.details_product);
-                dialog.setTitle("Pommes");
+                dialog.setTitle(product.get(position).getProductName());
                 dialog.show();
 
-                ImageButton unitSwitch = (ImageButton) dialog.findViewById(R.id.unitSwitch);
+                final TextView unitText = (TextView) dialog.findViewById(R.id.unitText);
+                unitText.setText(product.get(position).getUnity());
+
+
+                final ImageButton unitSwitch = (ImageButton) dialog.findViewById(R.id.unitSwitch);
                 unitSwitch.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        TextView unitText = (TextView) dialog.findViewById(R.id.unitText);
                         switch (unitText.getText().toString()) {
                             case "Kg":
                                 unitText.setText("U");
@@ -103,6 +106,7 @@ public class FragmentFloor extends Fragment {
                         if (value < 99) {
                             value++;
                             valueText.setText(Float.toString(value));
+                            dbHandler.incrementQuantity(product.get(position).getProductName());
                         } else {
                             Snackbar.make(v, "Vous ne pouvez pas avoir plus de 100 éléments", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
@@ -119,6 +123,7 @@ public class FragmentFloor extends Fragment {
                         if (value > 0) {
                             value--;
                             valueText.setText(Float.toString(value));
+                            dbHandler.decrementQuantity(product.get(position).getProductName());
                         } else {
                             Snackbar.make(v, "Vous ne pouvez pas avoir une quantité négative d'un aliment", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
@@ -130,9 +135,16 @@ public class FragmentFloor extends Fragment {
                 okButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        EditText valueText = (EditText) dialog.findViewById(R.id.valueText);
+//                        Log.d("coucou","" + valueText.getText().toString());
+                        dbHandler.setQuantityInDB(product.get(position).getProductName(),Float.parseFloat(valueText.getText().toString()));
                         dialog.dismiss();
                     }
                 });
+
+                EditText valueText = (EditText) dialog.findViewById(R.id.valueText);
+                valueText.setText("" + product.get(position).getQuantity());
+
             }
 
             @Override
