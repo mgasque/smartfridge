@@ -108,6 +108,14 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
     }
 
+    public void setQuantityInDB(String productname, float quantity) {
+        String query = "UPDATE " + TABLE_PRODUCTS + " SET " + COLUMN_QUANTITY + " = " + quantity + " WHERE " + COLUMN_PRODUCTNAME + " =  \"" + productname + "\"";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.execSQL(query);
+    }
+
     public boolean deleteProduct(String productname) {
 
         boolean result = false;
