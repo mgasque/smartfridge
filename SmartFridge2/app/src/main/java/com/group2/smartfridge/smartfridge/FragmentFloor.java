@@ -5,6 +5,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -41,9 +42,11 @@ public class FragmentFloor extends Fragment {
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
 
         // specify an adapter
-        String[] exemple = {"Patate", "tomates", "pomme"};
+        String[] exemple = {"Patate", "tomates", "pomme", "pomme", "pomme", "pomme"};
         mAdapter = new MyAdapter(exemple);
         mRecyclerView.setAdapter(mAdapter);
 
