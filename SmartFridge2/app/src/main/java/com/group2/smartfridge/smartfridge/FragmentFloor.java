@@ -28,7 +28,7 @@ public class FragmentFloor extends Fragment {
 
     // Creation attribute for RecyclerView
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private MyAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
@@ -44,6 +44,8 @@ public class FragmentFloor extends Fragment {
 
         final List<Product> product =
                     dbHandler.findProductByFloor(floorName);
+
+
         // Retrieve the recycler_view floor 2
         mRecyclerView = (RecyclerView) layout.findViewById(R.id.list_recycler);
 
@@ -80,7 +82,7 @@ public class FragmentFloor extends Fragment {
                         switch (unitText.getText().toString()) {
                             case "Kg":
                                 unitText.setText("U");
-                                dbHandler.setUnityInDB(product.get(position).getProductName(),"U");
+                                dbHandler.setUnityInDB(product.get(position).getProductName(), "U");
                                 break;
                             case "U":
                                 unitText.setText("L");
@@ -92,7 +94,7 @@ public class FragmentFloor extends Fragment {
                                 break;
                             case "%":
                                 unitText.setText("Kg");
-                                dbHandler.setUnityInDB(product.get(position).getProductName(),"Kg");
+                                dbHandler.setUnityInDB(product.get(position).getProductName(), "Kg");
                                 break;
                             default:
                                 unitText.setText("Kg");
@@ -141,13 +143,15 @@ public class FragmentFloor extends Fragment {
                     public void onClick(View v) {
                         EditText valueText = (EditText) dialog.findViewById(R.id.valueText);
 //                        Log.d("coucou","" + valueText.getText().toString());
-                        dbHandler.setQuantityInDB(product.get(position).getProductName(),Float.parseFloat(valueText.getText().toString()));
+                        dbHandler.setQuantityInDB(product.get(position).getProductName(), Float.parseFloat(valueText.getText().toString()));
                         dialog.dismiss();
                     }
                 });
 
                 EditText valueText = (EditText) dialog.findViewById(R.id.valueText);
                 valueText.setText("" + product.get(position).getQuantity());
+
+
 
             }
 
@@ -158,25 +162,6 @@ public class FragmentFloor extends Fragment {
             }
 
         }));
-//        mRecyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-//            @Override
-//            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-//                return false;
-//            }
-//
-//            @Override
-//            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-//
-//            }
-//
-//            @Override
-//            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-//
-//            }
-//        });
-
-        //View layout = inflater.inflate(R.layout.fragment_floor, container, false);
-
 
 
         return layout;
