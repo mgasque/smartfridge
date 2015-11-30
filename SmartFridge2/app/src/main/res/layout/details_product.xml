@@ -9,9 +9,8 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/switch_unit"
+        android:background="@drawable/switch_unit"
         android:id="@+id/unitSwitch"
-        android:background="@android:color/transparent"
         android:layout_gravity="bottom" />
 
     <LinearLayout
@@ -21,7 +20,7 @@
         android:orientation="vertical">
 
         <ImageView
-            android:src="@drawable/pomme"
+            android:background="@drawable/pomme"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center"
@@ -34,12 +33,11 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:src="@drawable/moins"
+                android:background="@drawable/moins"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="50dp"
-                android:id="@+id/lessButton"
-                android:background="@android:color/transparent"/>
+                android:id="@+id/lessButton" />
 
             <EditText
                 android:layout_width="100dp"
@@ -63,12 +61,11 @@
             </TextView>
 
             <ImageButton
-                android:src="@drawable/plus"
+                android:background="@drawable/plus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="50dp"
-                android:id="@+id/plusButton"
-                android:background="@android:color/transparent"/>
+                android:id="@+id/plusButton"/>
 
         </LinearLayout>
 
@@ -78,12 +75,11 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/valider"
+        android:background="@drawable/valider"
         android:gravity="right"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
         android:id="@+id/okButton"
-        android:background="@android:color/transparent"
         android:layout_gravity="bottom" />
 
 </LinearLayout>
