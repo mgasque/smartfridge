@@ -23,6 +23,7 @@ public class DatabaseTestActivity extends AppCompatActivity {
     EditText quantityBox;
     EditText floorBox;
     Context context;
+    EditText unityBox;
 
 
     @Override
@@ -46,9 +47,9 @@ public class DatabaseTestActivity extends AppCompatActivity {
         productBox = (EditText) findViewById(R.id.productName);
         quantityBox = (EditText) findViewById(R.id.productQuantity);
         floorBox = (EditText) findViewById(R.id.productFloor);
+        unityBox = (EditText) findViewById(R.id.productUnity);
 
         Button button1 = (Button) findViewById(R.id.button);
-        Button button2 = (Button) findViewById(R.id.button2);
         Button button3 = (Button) findViewById(R.id.button3);
         Button button4 = (Button) findViewById(R.id.button4);
         Button button5 = (Button) findViewById(R.id.button5);
@@ -69,31 +70,13 @@ public class DatabaseTestActivity extends AppCompatActivity {
                         Float.parseFloat(quantityBox.getText().toString());
 
                 Product product =
-                        new Product(productBox.getText().toString(), quantity, floorBox.getText().toString());
+                        new Product(productBox.getText().toString(), quantity, floorBox.getText().toString(), unityBox.getText().toString());
 
                 dbHandler.addProduct(product);
                 productBox.setText("");
                 quantityBox.setText("");
+                unityBox.setText("");
                 floorBox.setText("");
-            }
-        });
-
-        button2.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Perform action on click
-                MyDBHandler dbHandler = new MyDBHandler(context, null, null, 1);
-
-                Product product =
-                        dbHandler.findProduct(productBox.getText().toString());
-
-                if (product != null) {
-                    idView.setText(String.valueOf(product.getID()));
-
-                    quantityBox.setText(String.valueOf(product.getQuantity()));
-                    floorBox.setText(String.valueOf(product.getFloorName()));
-                } else {
-                    idView.setText("No Match Found");
-                }
             }
         });
 
@@ -127,7 +110,7 @@ public class DatabaseTestActivity extends AppCompatActivity {
                 List<Product> product =
                         dbHandler.findProductByFloor(floorBox.getText().toString());
 
-                Log.d("log_tag", "coucou " + product.get(0).getFloorName() + product.get(0).getProductName() + product.get(0).getQuantity() + product.get(1).getFloorName() + product.get(1).getProductName());
+                Log.d("log_tag", "coucou " + product.get(0).getFloorName() + product.get(0).getProductName() + product.get(0).getQuantity() + product.get(0).getUnity());
             }
         });
 

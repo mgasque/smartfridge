@@ -9,22 +9,26 @@ public class Product {
     private String productname;
     private String floorName;
     private float quantity;
+    private String unity;
 
     public Product() {
 
     }
 
-    public Product(int id, String productname, float quantity, String floorName) {
+    public Product(int id, String productname, float quantity, String floorName,String unity) {
         this.id = id;
         this.productname = productname;
         this.quantity = quantity;
         this.floorName = floorName;
+        this.unity = unity;
     }
 
-    public Product(String productname, float quantity, String floorName) {
+    public Product(String productname, float quantity, String floorName,String unity) {
         this.productname = productname;
         this.quantity = quantity;
         this.floorName = floorName;
+        this.unity = unity;
+
     }
 
     public String getFloorName() {
@@ -57,5 +61,14 @@ public class Product {
 
     public float getQuantity() {
         return this.quantity;
+    }
+
+
+    public String getUnity() {
+        return unity;
+    }
+
+    public void setUnity(String unity) {
+        this.unity = unity;
     }
 }

@@ -71,7 +71,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         Log.d("product", product.getProductName());
 
         holder.productName.setText(product.getProductName());
-        holder.unity.setText("kg");
+        holder.unity.setText(product.getUnity());
         holder.quantityValue.setText(("" + product.getQuantity()));
 
     }
