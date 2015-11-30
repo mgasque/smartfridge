@@ -1,10 +1,12 @@
 package com.group2.smartfridge.smartfridge;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,6 +16,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.group2.smartfridge.smartfridge.database.DatabaseTestActivity;
+import com.group2.smartfridge.smartfridge.database.MyDBHandler;
+import com.group2.smartfridge.smartfridge.database.Product;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -87,27 +95,47 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_floor2) {
 
+            Bundle bundle = new Bundle();
+            bundle.putString("floorName", "floor2");
+
             fragment = new FragmentFloor();
+            fragment.setArguments(bundle);
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.mainFrame, fragment);
             ft.commit();
 
         } else if (id == R.id.nav_floor1) {
 
+//            Intent intent = new Intent(this, DatabaseTestActivity.class);
+//            startActivity(intent);
+
+            Bundle bundle = new Bundle();
+            bundle.putString("floorName", "floor1");
+
             fragment = new FragmentFloor();
+            fragment.setArguments(bundle);
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.mainFrame, fragment);
             ft.commit();
 
         } else if (id == R.id.nav_vegetable) {
 
+            Bundle bundle = new Bundle();
+            bundle.putString("floorName", "vegetable");
+
             fragment = new FragmentFloor();
+            fragment.setArguments(bundle);
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.mainFrame, fragment);
             ft.commit();
 
         }else if (id == R.id.nav_door) {
+
+            Bundle bundle = new Bundle();
+            bundle.putString("floorName", "door");
+
             fragment = new FragmentFloor();
+            fragment.setArguments(bundle);
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.mainFrame, fragment);
             ft.commit();

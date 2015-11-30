@@ -8,12 +8,18 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.group2.smartfridge.smartfridge.database.MyDBHandler;
+import com.group2.smartfridge.smartfridge.database.Product;
+
+import java.util.List;
 
 /**
  * Created by Aude on 29/11/2015.
@@ -31,7 +37,15 @@ public class FragmentFloor extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_floor, container, false);
         // retrieve current activity
         //Activity a = getActivity();
+        String floorName = getArguments().getString("floorName");
+        Log.d("log_tag", floorName);
 
+        MyDBHandler dbHandler = new MyDBHandler(getActivity(), null, null, 1);
+
+        List<Product> product =
+                    dbHandler.findProductByFloor(floorName);
+
+        Log.d("log_tag", "coucou " + product.get(0).getFloorName() + product.get(0).getProductName() + product.get(0).getQuantity() + product.get(1).getFloorName() + product.get(1).getProductName());
         // Retrieve the recycler_view floor 2
         mRecyclerView = (RecyclerView) layout.findViewById(R.id.list_recycler);
 
@@ -46,8 +60,7 @@ public class FragmentFloor extends Fragment {
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
 
         // specify an adapter
-        String[] exemple = {"Patate", "tomates", "pomme", "pomme", "pomme", "pomme"};
-        mAdapter = new MyAdapter(exemple);
+        mAdapter = new MyAdapter(product);
         mRecyclerView.setAdapter(mAdapter);
 
         mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), mRecyclerView, new RecyclerTouchListener.ClickListener() {
