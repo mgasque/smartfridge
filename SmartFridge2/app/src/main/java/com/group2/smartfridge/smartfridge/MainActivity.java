@@ -1,5 +1,7 @@
 package com.group2.smartfridge.smartfridge;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -60,7 +62,35 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+            // set title
+            alertDialogBuilder.setTitle("SmartFridge");
+
+            // set dialog message
+            alertDialogBuilder
+                    .setMessage("This will quit the application. Are you sure ? ")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,int id) {
+                            // if this button is clicked, close
+                            // current activity
+                            MainActivity.this.finish();
+                        }
+                    })
+                    .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,int id) {
+                            // if this button is clicked, just close
+                            // the dialog box and do nothing
+                            dialog.cancel();
+                        }
+                    });
+
+            // create alert dialog
+            AlertDialog alertDialog = alertDialogBuilder.create();
+
+            // show it
+            alertDialog.show();
         }
     }
 
@@ -111,17 +141,17 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_floor1) {
 
-            Intent intent = new Intent(this, DatabaseTestActivity.class);
-            startActivity(intent);
-//
-//            Bundle bundle = new Bundle();
-//            bundle.putString("floorName", "floor1");
-//
-//            fragment = new FragmentFloor();
-//            fragment.setArguments(bundle);
-//            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//            ft.replace(R.id.mainFrame, fragment);
-//            ft.commit();
+//            Intent intent = new Intent(this, DatabaseTestActivity.class);
+//            startActivity(intent);
+
+            Bundle bundle = new Bundle();
+            bundle.putString("floorName", "floor1");
+
+            fragment = new FragmentFloor();
+            fragment.setArguments(bundle);
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.mainFrame, fragment);
+            ft.commit();
 
         } else if (id == R.id.nav_vegetable) {
 

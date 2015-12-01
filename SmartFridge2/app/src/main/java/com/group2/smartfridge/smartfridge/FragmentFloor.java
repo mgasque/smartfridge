@@ -2,6 +2,7 @@ package com.group2.smartfridge.smartfridge;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.BitmapFactory;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.group2.smartfridge.smartfridge.database.MyDBHandler;
@@ -155,6 +157,9 @@ public class FragmentFloor extends Fragment {
 
                 EditText valueText = (EditText) dialog.findViewById(R.id.valueText);
                 valueText.setText("" + dbHandler.findProductByFloor(floorName).get(position).getQuantity());
+
+                ImageView img = (ImageView) dialog.findViewById(R.id.product_img);
+                img.setImageBitmap(BitmapFactory.decodeByteArray(dbHandler.findProductByFloor(floorName).get(position).getImg(), 0, dbHandler.findProductByFloor(floorName).get(position).getImg().length));
 
                 dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
 

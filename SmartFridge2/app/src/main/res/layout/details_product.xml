@@ -23,11 +23,10 @@
         android:orientation="vertical">
 
         <ImageView
-            android:background="@drawable/pomme"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center"
-            android:id="@+id/pommeimg" />
+            android:id="@+id/product_img" />
 
         <LinearLayout
             android:layout_width="wrap_content"
