@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
@@ -12,6 +14,7 @@ import android.util.Log;
 
 import com.group2.smartfridge.smartfridge.R;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -159,4 +162,40 @@ public class MyDBHandler extends SQLiteOpenHelper {
         return result;
     }
 
+    public void fillDb(Context context) {
+
+        addProduct(new Product("steak", 3, "floor2" , "U" , convertImg(context, R.drawable.steack)));
+        addProduct(new Product("biere", 2, "door" , "U" , convertImg(context, R.drawable.biere)));
+        addProduct(new Product("broccoli", 1, "vegetable" , "Kg" , convertImg(context, R.drawable.broccoli)));
+        addProduct(new Product("carotte", 6, "vegetable" , "U" , convertImg(context, R.drawable.carrot)));
+        addProduct(new Product("camembert", 60, "floor1" , "%" , convertImg(context, R.drawable.camembert)));
+        addProduct(new Product("cheese", 40, "floor1" , "%" , convertImg(context, R.drawable.cheese)));
+        addProduct(new Product("coca", 80, "door" , "%" , convertImg(context, R.drawable.coca)));
+        addProduct(new Product("corn", 1, "vegetable" , "Kg" , convertImg(context, R.drawable.corn)));
+        addProduct(new Product("cote_porc", 3, "floor2" , "U" , convertImg(context, R.drawable.cote_porc)));
+        addProduct(new Product("cream", Float.parseFloat("0.6"), "floor2" , "L" , convertImg(context, R.drawable.cream)));
+        addProduct(new Product("eggs", 4, "door" , "U" , convertImg(context, R.drawable.eggs)));
+        addProduct(new Product("jambon", 4, "floor2" , "U" , convertImg(context, R.drawable.jambon)));
+        addProduct(new Product("jus_orange", Float.parseFloat("0.8"), "door" , "L" , convertImg(context, R.drawable.jus_orange)));
+        addProduct(new Product("ketchup", 70, "door" , "%" , convertImg(context, R.drawable.ketchup)));
+        addProduct(new Product("lait", Float.parseFloat("0.5"), "door" , "L" , convertImg(context, R.drawable.lait)));
+        addProduct(new Product("yahourt", 5, "floor1", "U", convertImg(context, R.drawable.yogurt)));
+        addProduct(new Product("tomate",2,"vegetable","kg",convertImg(context,R.drawable.tomato)));
+        addProduct(new Product("saucisse",6,"floor2","U",convertImg(context,R.drawable.saucisse)));
+        addProduct(new Product("salade",1,"vegetable","U",convertImg(context,R.drawable.salad)));
+        addProduct(new Product("poulet",1,"floor2","U",convertImg(context,R.drawable.poulet)));
+        addProduct(new Product("pomme de terre", 6, "vegetable", "U", convertImg(context, R.drawable.potato)));
+        addProduct(new Product("pomme", 5, "vegetable", "U", convertImg(context, R.drawable.pomme)));
+        addProduct(new Product("poivron",2,"vegetable","kg",convertImg(context,R.drawable.pepper)));
+        addProduct(new Product("oignon",6,"vegetable","U",convertImg(context,R.drawable.onion)));
+    }
+
+    public static byte[] convertImg(Context context, int idDrawable){
+        Drawable mDrawable = ContextCompat.getDrawable(context, idDrawable);
+        Bitmap img = ((BitmapDrawable) mDrawable).getBitmap();
+        // Then convert to byte array
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        img.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        return stream.toByteArray();
+    }
 }

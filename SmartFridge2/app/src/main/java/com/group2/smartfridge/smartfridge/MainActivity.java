@@ -80,6 +80,10 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_course) {
+
+            MyDBHandler myHandler = new MyDBHandler(this, null, null, 1);
+            myHandler.fillDb(this);
+
             return true;
         }
 
