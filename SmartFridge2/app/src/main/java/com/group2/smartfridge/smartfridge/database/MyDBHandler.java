@@ -169,7 +169,6 @@ public class MyDBHandler extends SQLiteOpenHelper {
         addProduct(new Product("carotte", 6, "vegetable" , "U" , convertImg(context, R.drawable.carrot)));
         addProduct(new Product("camembert", 60, "floor1" , "%" , convertImg(context, R.drawable.camembert)));
         addProduct(new Product("cheese", 40, "floor1" , "%" , convertImg(context, R.drawable.cheese)));
-        addProduct(new Product("coca", 80, "door" , "%" , convertImg(context, R.drawable.coca)));
         addProduct(new Product("corn", 1, "vegetable" , "Kg" , convertImg(context, R.drawable.corn)));
         addProduct(new Product("cote_porc", 3, "floor2" , "U" , convertImg(context, R.drawable.cote_porc)));
         addProduct(new Product("cream", Float.parseFloat("0.6"), "floor2" , "L" , convertImg(context, R.drawable.cream)));
