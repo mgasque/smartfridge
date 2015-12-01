@@ -82,7 +82,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         return mList.size();
     }
 
-    public void refresh(){
+    public void refresh(List<Product> list){
+        mList = list;
         notifyDataSetChanged();
     }
 }
