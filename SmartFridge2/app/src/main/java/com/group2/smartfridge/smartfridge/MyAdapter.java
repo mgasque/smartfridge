@@ -2,12 +2,14 @@ package com.group2.smartfridge.smartfridge;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.group2.smartfridge.smartfridge.database.Product;
@@ -33,14 +35,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         public TextView productName;
         public TextView unity;
         public TextView quantityValue;
-        public ImageButton imgProduct;
+        public ImageView imgProduct;
 
         public ViewHolder(View v) {
             super(v);
             productName = (TextView) v.findViewById(R.id.productName);
             unity = (TextView) v.findViewById(R.id.unity);
             quantityValue = (TextView) v.findViewById(R.id.quantityValue);
-            imgProduct = (ImageButton) v.findViewById(R.id.imgProduct);
+            imgProduct = (ImageView) v.findViewById(R.id.imgProduct);
 
         }
     }
@@ -73,6 +75,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.productName.setText(product.getProductName());
         holder.unity.setText(product.getUnity());
         holder.quantityValue.setText(("" + product.getQuantity()));
+        holder.imgProduct.setImageBitmap(BitmapFactory.decodeByteArray(product.getImg(),0,product.getImg().length));
 
     }
 
