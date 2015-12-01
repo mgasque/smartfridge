@@ -3,28 +3,13 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="fragment floor 2"/>
 
 
-    <EditText
-       android:layout_width="fill_parent"
-       android:layout_height="50dp"
-        android:layout_below="@+id/editContact"
-        android:id="@+id/editPhone"
-        android:inputType="phone"
-        android:maxLength="10"
-    android:clickable="true"
-        android:hint="Contact" />
 
-    <Button
-    android:layout_width="fill_parent"
-    android:layout_height="50dp"
-    android:id="@+id/contactbtn"
-    android:text="Contact" />
 
 
     <!-- A RecyclerView with some commonly used attributes -->

@@ -7,7 +7,9 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_margin="50dp">
+    android:layout_marginTop="50dp"
+    android:layout_marginLeft="50dp"
+    android:layout_marginRight="50dp">
 
     <TextView
         android:layout_width="wrap_content"
@@ -17,10 +19,9 @@
         android:id="@+id/productName"
         android:layout_marginBottom="10dp"/>
 
-    <ImageButton
+    <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="@drawable/pomme"
         android:id="@+id/imgProduct"/>
 
     <LinearLayout
@@ -40,8 +41,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/unity"
-            android:text="  Kg"/>
+            android:id="@+id/unity"/>
     </LinearLayout>
 
 </LinearLayout>
