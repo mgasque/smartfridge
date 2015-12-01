@@ -1,6 +1,7 @@
 package com.group2.smartfridge.smartfridge;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -155,7 +156,14 @@ public class FragmentFloor extends Fragment {
                 EditText valueText = (EditText) dialog.findViewById(R.id.valueText);
                 valueText.setText("" + dbHandler.findProductByFloor(floorName).get(position).getQuantity());
 
+                dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
 
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        mAdapter.refresh(dbHandler.findProductByFloor(floorName));
+
+                    }
+                });
 
 
             }
