@@ -1,0 +1,35 @@
+<relativelayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    tools:context=".MainActivity"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <textview
+        android:id="@+id/textView1"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/hello_world">
+
+        <imageview
+            android:id="@+id/imageView_image"
+            android:layout_below="@+id/textView1"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content">
+
+            <button
+                android:id="@+id/button_insert"
+                android:layout_below="@+id/imageView_image"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Insert In DB">
+
+            </button>
+            <button android:id="@+id/button_retrieve"
+                android:layout_below="@+id/button_insert"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Retrieve from DB">
+            </button>
+        </imageview>
+    </textview>
+</relativelayout>

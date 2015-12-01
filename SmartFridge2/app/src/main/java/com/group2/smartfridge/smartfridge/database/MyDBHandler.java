@@ -5,7 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.util.Log;
+
+import com.group2.smartfridge.smartfridge.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +30,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
     public static final String COLUMN_QUANTITY = "quantity";
     public static final String COLUMN_FLOOR = "floorName";
     public static final String COLUMN_UNITY = "unity";
+    public static final String COLUMN_IMG = "img";
 
 
     public MyDBHandler(Context context, String name,
@@ -37,8 +43,8 @@ public class MyDBHandler extends SQLiteOpenHelper {
         String CREATE_PRODUCTS_TABLE = "CREATE TABLE " +
                 TABLE_PRODUCTS + "("
                 + COLUMN_ID + " INTEGER PRIMARY KEY," + COLUMN_PRODUCTNAME
-                + " TEXT," + COLUMN_QUANTITY + " INTEGER," + COLUMN_FLOOR + " TEXT," + COLUMN_UNITY + " TEXT" + ")";
-        Log.d("log_tag",CREATE_PRODUCTS_TABLE);
+                + " TEXT," + COLUMN_QUANTITY + " INTEGER," + COLUMN_FLOOR + " TEXT," + COLUMN_UNITY + " TEXT," + COLUMN_IMG + " TEXT NOT NULL" + ")";
+        Log.d("log_tag", CREATE_PRODUCTS_TABLE);
         db.execSQL(CREATE_PRODUCTS_TABLE);
     }
 
@@ -49,6 +55,8 @@ public class MyDBHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+
+
     public void addProduct(Product product) {
 
         ContentValues values = new ContentValues();
@@ -56,6 +64,9 @@ public class MyDBHandler extends SQLiteOpenHelper {
         values.put(COLUMN_QUANTITY, product.getQuantity());
         values.put(COLUMN_FLOOR, product.getFloorName());
         values.put(COLUMN_UNITY, product.getUnity());
+        //Example of image byte to store
+        values.put(COLUMN_IMG, product.getImg());
+
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -80,6 +91,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
             product.setQuantity(Float.parseFloat(cursor.getString(2)));
             product.setFloorName(cursor.getString(3));
             product.setUnity(cursor.getString(4));
+            product.setImg(cursor.getBlob(5));
             myList.add(product);
 
         }
