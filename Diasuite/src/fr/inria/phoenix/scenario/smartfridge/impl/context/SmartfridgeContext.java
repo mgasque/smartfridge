@@ -24,7 +24,7 @@ public class SmartfridgeContext extends AbstractSmartfridgeContext {
     	SmartfridgeData message = new SmartfridgeData();
     	
     	message.setIsContact(stateFromContactSensor.value());
-    	message.setLocation(stateFromContactSensor.sender().location());
+    	message.setLocation(stateFromContactSensor.sender().id());
     
     	return message;
     }
