@@ -5,18 +5,6 @@ structure SmartfridgeData{
 	location as String;
 }
 
-action SendMessageToTablette{
-	send(isContact as Boolean, location as String);
-}
-
-device Tablette{
-	action SendMessageToTablette;
-}
-
-device Messenger extends PhysicalDevice{
-	action SendMessage;
-}
-
 // Smartfridge context
 context SmartfridgeContext as SmartfridgeData {
 	when provided state from ContactSensor
@@ -26,5 +14,4 @@ context SmartfridgeContext as SmartfridgeData {
 // Smartfridge controller
 controller SmartfridgeController {
 	when provided SmartfridgeContext do SendMessage on Messenger;
-	//when provided SmartfridgeContext do SendMessageToTablette on Tablette;
 }
