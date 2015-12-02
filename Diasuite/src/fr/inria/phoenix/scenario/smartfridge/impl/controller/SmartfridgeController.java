@@ -30,7 +30,7 @@ public class SmartfridgeController extends AbstractSmartfridgeController {
 		List<File> attachments = new ArrayList<File>();
     	
     	String message = new String();
-    	message = smartfridgeContext.value().getIsContact().toString() + smartfridgeContext.value().getLocation();
+    	message = smartfridgeContext.value().getLocation();
     	
     	
 		discover.messengers().anyOne().sendMessage(contact, title, message, attachments);
