@@ -284,16 +284,16 @@ public class MainActivity extends AppCompatActivity
 
     String parseDia(String msg){
         switch (msg) {
-            case "floor_1":
+            case "ContatctSensor_38":
                 msg = "floor1";
                 break;
-            case "floor_2":
+            case "ContactSensor_39":
                 msg = "floor2";
                 break;
-            case "door_":
+            case "ContactSensor_40":
                 msg = "door";
                 break;
-            case "vegetable_":
+            case "ContactSensor_45":
                 msg = "vegetable";
                 break;
         }
