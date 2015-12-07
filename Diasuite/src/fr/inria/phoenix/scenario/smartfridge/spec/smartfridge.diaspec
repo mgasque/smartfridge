@@ -1,7 +1,7 @@
 include "taxonomy.diaspec";
 
 structure SmartfridgeData{
-	isContact as Boolean;
+	isContact as State;
 	location as String;
 }
 
@@ -15,3 +15,4 @@ context SmartfridgeContext as SmartfridgeData {
 controller SmartfridgeController {
 	when provided SmartfridgeContext do SendMessage on Messenger;
 }
+	
